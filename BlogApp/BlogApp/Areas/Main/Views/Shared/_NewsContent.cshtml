@@ -1,0 +1,106 @@
+﻿@model BlogApp.Areas.Main.Data.NewsViewModel
+@{
+    ViewBag.Image = Url.Content("~/images");
+}
+
+<div class="page-wrapper">
+    <div class="blog-title-area text-center">
+        <ol class="breadcrumb hidden-xs-down">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "News")">Tin tức</a></li>
+            <li class="breadcrumb-item active">@Model.News.Title</li>
+        </ol>
+
+        <span class="color-orange"><a href="@Url.Action("Index")" title="">@Model.Topic</a></span>
+
+        <h3>@Model.News.Title</h3>
+
+        <div class="blog-meta big-meta">
+            <small><a href="@Url.Action("Details", "News", new { id = Model.News.ID.Trim() })" title="">@Model.News.PubDate</a></small>
+            <small><a href="#" title="">by Unk</a></small>
+            <small><a href="#" title=""><i class="fa fa-eye"></i> 2344</a></small>
+        </div><!-- end meta -->
+
+        <div class="post-sharing">
+            <ul class="list-inline">
+                <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
+                <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
+                <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
+            </ul>
+        </div><!-- end post-sharing -->
+    </div><!-- end title -->
+
+    <div class="blog-content">
+        <div class="pp">
+            @Html.Raw(Model.News.Content)
+        </div><!-- end pp -->
+    </div><!-- end content -->
+
+    <div class="blog-title-area">
+        <div class="tag-cloud-single">
+            <span>Tags</span>
+            <small><a href="#" title="">lifestyle</a></small>
+            <small><a href="#" title="">colorful</a></small>
+            <small><a href="#" title="">trending</a></small>
+            <small><a href="#" title="">another tag</a></small>
+        </div><!-- end meta -->
+
+        <div class="post-sharing">
+            <ul class="list-inline">
+                <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
+                <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
+                <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
+            </ul>
+        </div><!-- end post-sharing -->
+    </div><!-- end title -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="banner-spot clearfix">
+                <div class="banner-img">
+                    <img src="@ViewBag.Image/upload/banner_ad.png" alt="" class="img-fluid">
+                </div><!-- end banner-img -->
+            </div><!-- end banner -->
+        </div><!-- end col -->
+    </div><!-- end row -->
+
+    <hr class="invis1">
+
+    <div class="custombox prevnextpost clearfix">
+        <div class="row">
+            <div class="col-lg-6">
+                @if (Model.Prev_News != null)
+                {
+                    <div class="blog-list-widget">
+                        <div class="list-group">
+                            <a href="@Url.Action("Details", "News", new { id = Model.Prev_News.ID.Trim() })" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="w-100 justify-content-between text-right">
+                                    <img src="@Model.Prev_News.Image" alt="" class="img-fluid float-right" style="height:58.13px!important">
+                                    <h5 class="mb-1">@Model.Prev_News.Title</h5>
+                                    <small>Prev Post</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div><!-- end col -->
+
+            <div class="col-lg-6">
+                @if (Model.Next_News != null)
+                {
+                    <div class="blog-list-widget">
+                        <div class="list-group">
+                            <a href="@Url.Action("Details", "News", new { id = Model.Next_News.ID.Trim() })" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="w-100 justify-content-between">
+                                    <img src="@Model.Next_News.Image" alt="" class="img-fluid float-left" style="height:58.13px!important">
+                                    <h5 class="mb-1">@Model.Next_News.Title</h5>
+                                    <small>Next Post</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end author-box -->   
+</div><!-- end page-wrapper -->

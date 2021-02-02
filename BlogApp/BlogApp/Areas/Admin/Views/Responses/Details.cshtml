@@ -1,0 +1,65 @@
+﻿@model BlogApp.Areas.Admin.Data.Response
+
+@{
+    ViewBag.Title = "Chi tiết";
+}
+
+<h2>Chi tiết phản hồi</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nội dung
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            Ngày đăng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PubDate)
+        </dd>
+
+        <dt>
+            Tác giả
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            Email
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            Website
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+
+        <dt>
+            Bài viết
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post.Title)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.ID }, new { @class="btn btn-success" })
+    @Html.ActionLink("Quay lại", "Index", null, new { @class="btn btn-success" })
+</p>

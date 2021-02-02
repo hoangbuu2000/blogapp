@@ -1,0 +1,89 @@
+﻿@model PagedList.IPagedList<BlogApp.Areas.Admin.Data.Post>
+@using BlogApp.Areas.Admin.Utils
+@{
+    ViewBag.Image = Url.Content("~/") + "images";
+}
+
+<div class="page-wrapper">
+    <div class="blog-top clearfix">
+        <h4 class="pull-left">Recent Blogs <a href="#"><i class="fa fa-rss"></i></a></h4>
+    </div><!-- end blog-top -->
+
+    <div class="blog-list clearfix">
+        @{ int i = 0; }
+        @foreach (var item in Model)
+        {
+            i++;
+            <div class="blog-box row">
+                <div class="col-md-4">
+                    <div class="post-media">
+                        <a href="@Url.Action("Details", "Blog", new { id = item.ID.Trim() })" title="">
+                            <img src="@item.Image" alt="" class="img-fluid">
+                            <div class="hovereffect"></div>
+                        </a>
+                    </div><!-- end media -->
+                </div><!-- end col -->
+
+                <div class="blog-meta big-meta col-md-8">
+                    <h4><a href="@Url.Action("Details", "Blog", new { id = item.ID.Trim() })" title="">@item.Title</a></h4>
+
+                    <!-- Content Blog, remember style a block with the same style -->
+                    @Html.Raw(SubsHtml.SubstringHtml(item.Content, item.Content.Length > 30 ? 30 : item.Content.Length))
+
+                    <small class="firstsmall"><a class="bg-orange" href="@Url.Action("Index", "Blog", new { topicID = item.Topic.ID })" title="">@item.Topic.Name</a></small>
+                    <small><a href="@Url.Action("Details", "Blog", new { id = item.ID.Trim() })" title="">@item.PubDate</a></small>
+                    <small><a href="tech-author.html" title="">by @item.Account.Fullname</a></small>
+                    <small><a href="@Url.Action("Details", "Blog", new { id = item.ID.Trim() })" title=""><i class="fa fa-eye"></i> 1114</a></small>
+                </div><!-- end meta -->
+            </div><!-- end blog-box -->
+
+            <hr class="invis">
+
+            if (i == 3)
+            {
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1">
+                        <div class="banner-spot clearfix">
+                            <div class="banner-img">
+                                <img src="@ViewBag.Image/upload/banner_ad.png" alt="" class="img-fluid">
+                            </div><!-- end banner-img -->
+                        </div><!-- end banner -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+
+                <hr class="invis">
+            }
+        }
+    </div><!-- end blog-list -->
+</div><!-- end page-wrapper -->
+
+<hr class="invis">
+
+<div class="row">
+    <div class="col-md-12">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-start">
+                @for (int p = 1; p <= ViewBag.totalPage; p++)
+                {
+                    <li id="@p">
+                        @Ajax.ActionLink((p).ToString(), "RecentBlog", new { page = p }, new AjaxOptions
+                   {
+                       UpdateTargetId = "recentblog",
+                       InsertionMode = InsertionMode.Replace,
+                       HttpMethod = "GET",
+
+                       LoadingElementId = "loader",
+                       OnSuccess =
+                       "$(document).ready(() => {" +
+                       "$('.pagination > li').addClass('page-item');" +
+                       "$('.pagination > li > a').addClass('page-link');" +
+                       "$('.pagination > li:nth-child(" + p.ToString() + ")').addClass('active');" +
+                       "$('html, body').delay(500).animate({ scrollTop: '0px' }, 700);" +
+                       "})"
+                   })
+                </li>
+            }
+            </ul>
+        </nav>
+    </div><!-- end col -->
+</div><!-- end row -->

@@ -1,0 +1,73 @@
+﻿@model BlogApp.Areas.Admin.Data.Account
+
+@{
+    ViewBag.Title = "Chi tiết tài khoản";
+}
+
+<h2>Chi tiết tài khoản</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tài khoản
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            Mật khẩu
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            Họ tên
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fullname)
+        </dd>
+
+        <dt>
+            Kích hoạt
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+        <dt>
+            Ngày truy cập
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccessDate)
+        </dd>
+
+        <dt>
+            Vai trò
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.ID }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-success" })
+</p>

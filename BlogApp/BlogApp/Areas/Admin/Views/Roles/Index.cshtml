@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BlogApp.Areas.Admin.Data.Role>
+
+@{
+    ViewBag.Title = "Role";
+}
+
+<h2>DANH SÁCH ROLE</h2>
+
+<p>
+    @Html.ActionLink("Thêm role", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tên
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

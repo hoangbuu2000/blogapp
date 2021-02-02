@@ -1,0 +1,48 @@
+﻿@using BlogApp.Areas.Admin.Utils
+
+<div class="page-wrapper">
+    <div class="blog-grid-system">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6">
+                    <div class="blog-box">
+                        <div class="post-media">
+                            <a href="@Url.Action("Details", "News", new { id = item.ID.Trim() })" title="">
+                                <img src="@item.Image" alt="" class="img-fluid" style="height:250px">
+                                <div class="hovereffect">
+                                    <span></span>
+                                </div><!-- end hover -->
+                            </a>
+                        </div><!-- end media -->
+                        <div class="blog-meta big-meta">
+                            <span class="color-orange"><a href="#" title="">@item.Topic</a></span>
+                            <h4><a href="@Url.Action("Details", "News", new { id = item.ID.Trim() })" title="">@item.Title</a></h4>
+                            @Html.Raw(SubsHtml.SubstringHtml(item.Content, 157))
+                            <small><a href="@Url.Action("Details", "News", new { id = item.ID.Trim() })" title="">@item.PubDate</a></small>
+                            <small><a href="#" title="">by Unk</a></small>
+                            <small><a href="#" title=""><i class="fa fa-eye"></i> 2887</a></small>
+                        </div><!-- end meta -->
+                    </div><!-- end blog-box -->
+                </div><!-- end col -->
+            }
+        </div><!-- end row -->
+    </div><!-- end blog-grid-system -->
+</div><!-- end page-wrapper -->
+
+<hr class="invis3">
+
+<div class="row">
+    <div class="col-md-12">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-start">
+                @for (int p = 1; p <= ViewBag.totalPage; p++)
+                {
+                    <li id="@p">
+                        @Html.ActionLink((p).ToString(), "Index", new { page = p })
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div><!-- end col -->
+</div><!-- end row -->

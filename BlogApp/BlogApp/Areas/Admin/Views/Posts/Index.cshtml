@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BlogApp.Areas.Admin.Data.Post>
+@using BlogApp.Areas.Admin.Data
+@{
+    ViewBag.Title = "Bài viết";
+}
+
+<h2>DANH SÁCH BÀI VIẾT @ViewBag.usr</h2>
+
+<p>
+    @Html.ActionLink("Thêm bài viết", "Create")
+</p>
+
+<table class="table table-responsive-lg table-responsive-md table-responsive-sm">
+    <tr>
+        <th>
+            Tiêu đề
+        </th>
+        <th>
+            Nội dung
+        </th>
+        <th>
+            Ảnh đại diện
+        </th>
+        <th>
+            Ngày đăng
+        </th>
+        <th>
+            Tác giả
+        </th>
+        <th>
+            Chủ đề
+        </th>
+        <th>
+            Ghim
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @item.Content.Substring(0, @item.Content.Length > 10 ? 10 : item.Content.Length)
+            ....
+        </td>
+        <td>
+            @Html.Image("../../../" + item.Image, "No image", "50", 
+                        "border-radius:50%")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PubDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Account.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Topic.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPin)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.ID.Trim() }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id=item.ID.Trim() }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ID.Trim() })
+        </td>
+    </tr>
+}
+
+</table>

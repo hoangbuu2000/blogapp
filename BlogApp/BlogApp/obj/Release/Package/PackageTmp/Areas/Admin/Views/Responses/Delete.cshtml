@@ -1,0 +1,71 @@
+﻿@model BlogApp.Areas.Admin.Data.Response
+
+@{
+    ViewBag.Title = "Xóa";
+}
+
+<h2>Xóa phản hồi</h2>
+
+<h3>Bạn có chắc muốn xóa phản hồi '@Model.ID' không?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nội dung
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            Ngày đăng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PubDate)
+        </dd>
+
+        <dt>
+            Tác giả
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            Email
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            Website
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+
+        <dt>
+            Bài viết
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post.Title)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-success" /> 
+            @Html.ActionLink("Quay lại", "Index", null, new { @class="btn btn-success" })
+        </div>
+    }
+</div>

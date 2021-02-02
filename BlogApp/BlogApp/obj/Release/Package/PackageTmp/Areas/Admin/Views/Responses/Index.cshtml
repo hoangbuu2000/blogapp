@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BlogApp.Areas.Admin.Data.Response>
+
+@{
+    ViewBag.Title = "Phản hồi";
+}
+
+<h2>DANH SÁCH PHẢN HỒI</h2>
+
+<p>
+    @Html.ActionLink("Thêm phản hồi", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nội dung
+        </th>
+        <th>
+            Ngày đăng
+        </th>
+        <th>
+            Tác giả
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Website
+        </th>
+        <th>
+            Bài viết
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.Content.Substring(0, @item.Content.Length > 10 ? 10 : item.Content.Length)
+            ....
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PubDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Website)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Post.Title)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

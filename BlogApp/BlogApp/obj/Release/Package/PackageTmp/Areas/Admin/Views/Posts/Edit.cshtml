@@ -1,0 +1,105 @@
+﻿@model BlogApp.Areas.Admin.Data.Post
+@using BlogApp.Areas.Admin.Data
+@{
+    ViewBag.Title = "Sửa bài viết";
+}
+
+<h2>Sửa bài viết</h2>
+
+@using (Html.BeginForm("Edit", "Posts", FormMethod.Post, new { enctype="multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, "Tiêu đề", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Content, "Nội dung", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image, "Ảnh đại diện", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.Image)
+            @Html.Image("", "No image", "100", "")
+            <br /><br />
+            <label class="mdl-button mdl-js-button mdl-button--icon mdl-button--file">
+                <i id="Browse" class="material-icons" style="cursor:pointer;">collections</i>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PubDate, "Ngày đăng", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PubDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PubDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Topic_ID, "Chủ đề", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("Topic_ID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Topic_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Account_ID, "Tài khoản", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("Account_ID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Account_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsPin, "Ghim", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.IsPin, new { @type="number", placeholder="Nhập 1 nếu muốn ghim bài viết", @class="form-control" })
+            @Html.ValidationMessageFor(model => model.Account_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Lưu" class="btn btn-success" />
+            @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-success" })
+        </div>
+    </div>
+</div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(() => {
+            //lay hinh anh hien co cua truong hidden set cho the img
+            var imgtag = $('#Image + img');
+            imgtag.attr('src', $('#Image').val());
+
+            CKEDITOR.replace("Content");
+            $('#Browse').click(() => {
+                var finder = new CKFinder();
+                finder.selectActionFunction = (fileUrl) => {
+                    $('#Image').val(fileUrl);
+                    imgtag.attr('src', fileUrl);
+                }
+                finder.popup();
+            })
+        })
+    </script>    
+}

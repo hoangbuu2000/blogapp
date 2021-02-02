@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BlogApp.Areas.Admin.Data.Topic>
+
+@{
+    ViewBag.Title = "Chủ đề";
+}
+
+<h2>CÁC CHỦ ĐỀ BÀI VIẾT</h2>
+
+<p>
+    @Html.ActionLink("Thêm chủ đề", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tên chủ đề
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

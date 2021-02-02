@@ -1,0 +1,222 @@
+﻿@model BlogApp.Areas.Main.Data.BlogViewModel
+@{ 
+    ViewBag.Image = Url.Content("~/images");
+}
+
+<div class="page-wrapper">
+    <div class="blog-title-area text-center">
+        <ol class="breadcrumb hidden-xs-down">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Blog")">Blogs</a></li>
+            <li class="breadcrumb-item active">@Model.Blog.Title</li>
+        </ol>
+
+        <span class="color-orange"><a href="@Url.Action("Index", "Blog", new { topicID = Model.Topic.ID })" title="">@Model.Topic.Name</a></span>
+
+        <h3>@Model.Blog.Title</h3>
+
+        <div class="blog-meta big-meta">
+            <small><a href="@Url.Action("Details", "Blog", new { id = Model.Blog.ID.Trim() })" title="">@Model.Blog.PubDate</a></small>
+            <small><a href="tech-author.html" title="">by @Model.Blog.Account.Fullname</a></small>
+            <small><a href="#" title=""><i class="fa fa-eye"></i> 2344</a></small>
+        </div><!-- end meta -->
+
+        <div class="post-sharing">
+            <ul class="list-inline">
+                <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
+                <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
+                <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
+            </ul>
+        </div><!-- end post-sharing -->
+    </div><!-- end title -->
+
+    <div class="single-post-media">
+        <img src="@Model.Blog.Image" alt="" class="img-fluid">
+    </div><!-- end media -->
+
+    <div class="blog-content">
+        <div class="pp">
+            @Html.Raw(Model.Blog.Content)
+        </div><!-- end pp -->
+    </div><!-- end content -->
+
+    <div class="blog-title-area">
+        <div class="tag-cloud-single">
+            <span>Tags</span>
+            <small><a href="#" title="">lifestyle</a></small>
+            <small><a href="#" title="">colorful</a></small>
+            <small><a href="#" title="">trending</a></small>
+            <small><a href="#" title="">another tag</a></small>
+        </div><!-- end meta -->
+
+        <div class="post-sharing">
+            <ul class="list-inline">
+                <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
+                <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
+                <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
+            </ul>
+        </div><!-- end post-sharing -->
+    </div><!-- end title -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="banner-spot clearfix">
+                <div class="banner-img">
+                    <img src="@ViewBag.Image/upload/banner_ad.png" alt="" class="img-fluid">
+                </div><!-- end banner-img -->
+            </div><!-- end banner -->
+        </div><!-- end col -->
+    </div><!-- end row -->
+
+    <hr class="invis1">
+
+    <div class="custombox prevnextpost clearfix">
+        <div class="row">
+            <div class="col-lg-6">
+                @if (Model.Prev_Blog != null)
+                {
+                    <div class="blog-list-widget">
+                        <div class="list-group">
+                            <a href="@Url.Action("Details", "Blog", new { id = Model.Prev_Blog.ID.Trim() })" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="w-100 justify-content-between text-right">
+                                    <img src="@Model.Prev_Blog.Image" alt="" class="img-fluid float-right" style="height:58.13px!important">
+                                    <h5 class="mb-1">@Model.Prev_Blog.Title</h5>
+                                    <small>Prev Post</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div><!-- end col -->
+
+            <div class="col-lg-6">
+                @if (Model.Next_Blog != null)
+                {
+                    <div class="blog-list-widget">
+                        <div class="list-group">
+                            <a href="@Url.Action("Details", "Blog", new { id = Model.Next_Blog.ID.Trim() })" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="w-100 justify-content-between">
+                                    <img src="@Model.Next_Blog.Image" alt="" class="img-fluid float-left" style="height:58.13px!important">
+                                    <h5 class="mb-1">@Model.Next_Blog.Title</h5>
+                                    <small>Next Post</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end author-box -->
+
+    <hr class="invis1">
+
+    <div class="custombox authorbox clearfix">
+        <h4 class="small-title">About author</h4>
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <img src="@ViewBag.Image/upload/author.jpg" alt="" class="img-fluid rounded-circle">
+            </div><!-- end col -->
+
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                <h4><a href="#">@Model.Blog.Account.Fullname</a></h4>
+                <p>Quisque sed tristique felis. Lorem <a style="color:#FF6347!important;" href="#">visit my website</a> amet, consectetur adipiscing elit. Phasellus quis mi auctor, tincidunt nisl eget, finibus odio. Duis tempus elit quis risus congue feugiat. Thanks for stop Tech Blog!</p>
+
+                <div class="topsocial">
+                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Youtube"><i class="fa fa-youtube"></i></a>
+                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Instagram"><i class="fa fa-instagram"></i></a>
+                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Website"><i class="fa fa-link"></i></a>
+                </div><!-- end social -->
+
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end author-box -->
+
+    <hr class="invis1">
+
+    <div class="custombox clearfix">
+        <h4 class="small-title">You may also like</h4>
+        <div class="row">
+            @foreach (var item in Model.RelatedPost)
+            {
+                <div class="col-lg-6">
+                    <div class="blog-box">
+                        <div class="post-media">
+                            <a href="@Url.Action("Details", "Blog", new { id = item.ID.Trim() })" title="">
+                                <img src="@item.Image" alt="" class="img-fluid" style="height:250px">
+                                <div class="hovereffect">
+                                    <span class=""></span>
+                                </div><!-- end hover -->
+                            </a>
+                        </div><!-- end media -->
+                        <div class="blog-meta">
+                            <h4><a href="@Url.Action("Details", "Blog", new { id = item.ID.Trim() })" title="">@item.Title</a></h4>
+                            <small><a href="blog-category-01.html" title="">@item.Topic.Name</a></small>
+                            <small><a href="@Url.Action("Details", "Blog", new { id = item.ID.Trim() })" title="">@item.PubDate</a></small>
+                        </div><!-- end meta -->
+                    </div><!-- end blog-box -->
+                </div><!-- end col -->
+            }
+        </div><!-- end row -->
+    </div><!-- end custom-box -->
+
+    <hr class="invis1">
+
+    <div class="custombox clearfix">
+        <h4 class="small-title">@Model.Responses.Count() Bình luận</h4>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="comments-list">
+                    @foreach (var item in Model.Responses)
+                    {
+                        <div class="media">
+                            <a class="media-left" href="#">
+                                <img src="@ViewBag.Image/upload/author.jpg" alt="" class="rounded-circle">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading user_name">@item.Username <small>@item.PubDate</small></h4>
+                                @Html.Raw(item.Content)
+                                <button class="btn btn-primary btn-sm reply" style="cursor:pointer">Reply</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end custom-box -->
+
+    <hr class="invis1">
+
+    <div class="custombox clearfix">
+        <h4 class="small-title">Phản hồi</h4>
+        <div class="row">
+            <div class="col-lg-12">
+                @using (Html.BeginForm("Details", "Blog", FormMethod.Post, new { @class = "form-wrapper" }))
+                {
+                    @Html.HiddenFor(model => model.CurrentBlogID)
+
+                    <div>
+                        @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = "Your name", required = "True" })
+                    </div>
+
+                    <div>
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email address", required = "True", type = "email" })
+                    </div>
+
+                    <div>
+                        @Html.TextBoxFor(model => model.Website, new { @class = "form-control", placeholder = "Website" })
+                    </div>
+
+                    <div>
+                        @Html.TextAreaFor(model => model.Content)
+                    </div>
+           
+                    <br />
+                    <button type="submit" class="btn btn-primary">Submit Comment</button>
+                }
+            </div>
+        </div>
+    </div>
+</div><!-- end page-wrapper -->

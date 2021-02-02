@@ -1,0 +1,69 @@
+﻿@model IEnumerable<BlogApp.Areas.Admin.Data.Account>
+
+@{
+    ViewBag.Title = "Tài khoản";
+}
+
+<h2>Danh sách tài khoản</h2>
+
+<p>
+    @Html.ActionLink("Thêm tài khoản", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tài khoản
+        </th>
+        <th>
+            Mật khẩu
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Họ tên
+        </th>
+        <th>
+            Kích hoạt
+        </th>
+        <th>
+            Ngày truy cập
+        </th>
+        <th>
+            Vai trò
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fullname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccessDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Role.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

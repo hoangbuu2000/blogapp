@@ -1,0 +1,33 @@
+﻿@model BlogApp.Areas.Main.Data.BlogViewModel
+@{
+    ViewBag.Title = "Chi tiết bài viết";
+}
+
+<section class="section single-wrapper">
+    <div class="container">
+        <div class="row">
+            <div id="recentblog" class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                @Html.Action("BlogContent", Model)
+            </div><!-- end col -->
+
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                @Html.Partial("_SideBar")
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+
+@section scripts {
+    <script>
+        $(document).ready(() => {
+            CKEDITOR.replace("Content");
+            var finder = new CKFinder();
+            finder.popup();
+
+            $('.reply').click(() => {
+                $('#Username').focus();
+            })
+        })
+    </script>
+}
+

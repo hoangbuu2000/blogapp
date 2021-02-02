@@ -1,0 +1,31 @@
+﻿@model BlogApp.Areas.Admin.Data.Role
+
+@{
+    ViewBag.Title = "Xóa role";
+}
+
+<h2>Xóa role</h2>
+
+<h3>Bạn có chắc muốn xóa role '@Model.Name'?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-success" />
+            @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-success" })
+        </div>
+    }
+</div>

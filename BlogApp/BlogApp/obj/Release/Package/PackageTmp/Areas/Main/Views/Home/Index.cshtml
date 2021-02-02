@@ -1,0 +1,43 @@
+﻿@model List<BlogApp.Areas.Admin.Data.Post>
+@{
+    ViewBag.Title = "Trang chủ";
+}
+
+@section styles {
+    <style>
+        .active > a {
+            background-color: deepskyblue !important;
+            color: white !important;
+        }
+    </style>
+}
+
+@Html.Partial("_MasonryBlog")
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div id="recentblog" class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                @Html.Action("RecentBlog")
+            </div><!-- end col -->
+
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                @Html.Partial("_SideBar")
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+
+<div id="loader" style="position:fixed;z-index:1000;top:12%;left:24%;display:none;">
+    <img src="@Url.Content("~/images/")/upload/loader1.gif" />
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            $('.pagination > li').addClass('page-item');
+            $('.pagination > li > a').addClass('page-link');
+            $('.pagination > li:nth-child(1)').addClass('active');
+        })
+    </script>
+}

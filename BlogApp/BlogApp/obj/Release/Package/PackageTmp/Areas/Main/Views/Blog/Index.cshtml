@@ -1,0 +1,28 @@
+﻿@model PagedList.IPagedList<BlogApp.Areas.Admin.Data.Post>
+@{
+    ViewBag.Title = "Index";
+}
+
+@Html.Partial("_PageTitle")
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                @Html.Partial("_SideBar")
+            </div><!-- end col -->
+
+            <div id="recentblog" class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                @Html.Partial("_BlogByTopic")
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+
+@section scripts {
+    <script>
+        $(document).ready(() => {
+            $('.pagination > li').addClass('page-item');
+            $('.pagination > li > a').addClass('page-link');
+        })
+    </script>
+}

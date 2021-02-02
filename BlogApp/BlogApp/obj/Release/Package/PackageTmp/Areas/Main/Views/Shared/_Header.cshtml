@@ -1,0 +1,95 @@
+﻿@model BlogApp.Areas.Main.Data.TopicViewModel
+@{
+    string url = ViewData["url"] as string;
+}
+
+<header class="tech-header header">
+    <div class="container-fluid">
+        <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="@url/version/tech-logo.png" alt=""></a>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        @Html.ActionLink("Trang chủ", "Index", "Home", null, new { @class="nav-link" })
+                    </li>
+                    <li class="nav-item dropdown has-submenu menu-large hidden-md-down hidden-sm-down hidden-xs-down">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blogs</a>
+                        <ul class="dropdown-menu megamenu" aria-labelledby="dropdown01">
+                            <li>
+                                <div class="container">
+                                    <div class="mega-menu-content clearfix">
+                                        <div class="tab">
+                                            @{ var i = 1; }
+                                            @foreach (var item in Model.Topics)
+                                            {
+                                                <button class="tablinks @(i == 1 ? "active" : "")" onclick="openCategory(event, @item.ID.ToString())">@item.Name</button>
+                                                i++;
+                                            }
+                                        </div>
+
+                                        <div class="tab-details clearfix">
+                                            @{ var j = 1; }
+                                            @foreach (var item in Model.Topics)
+                                            {
+                                                <div id="@item.ID" class="tabcontent @(j == 1 ? "active" : "")">
+                                                    <div class="row">
+                                                        @foreach (var post in Model.PostInTopic[item])
+                                                        {
+                                                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                                                                <div class="blog-box">
+                                                                    <div class="post-media">
+                                                                        <a href="@Url.Action("Details", "Blog", new { id = post.ID.Trim() })" title="">
+                                                                            <img src="@post.Image" alt="" class="img-fluid" style="height:80px!important">
+                                                                            <div class="hovereffect">
+                                                                            </div><!-- end hover -->
+                                                                            <span class="menucat">@post.Topic.Name</span>
+                                                                        </a>
+                                                                    </div><!-- end media -->
+                                                                    <div class="blog-meta">
+                                                                        <h4><a href="@Url.Action("Details", "Blog", new { id = post.ID.Trim() })" title="">@post.Title</a></h4>
+                                                                    </div><!-- end meta -->
+                                                                </div><!-- end blog-box -->
+                                                            </div>
+                                                        }
+                                                        @Html.ActionLink("Xem thêm", "Index", "Blog", new { topicID = item.ID, page = 1 }, new { style="color:blue; margin-top:25px;" })
+                                                    </div><!-- end row -->
+                                                </div>
+                                                j++;
+                                            }
+                                        </div><!-- end tab-details -->
+                                    </div><!-- end mega-menu-content -->
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tech-category-01.html">Tin tức</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tech-category-02.html">Videos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tech-category-03.html">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tech-contact.html">Liên hệ</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mr-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa fa-android"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa fa-apple"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div><!-- end container-fluid -->
+</header><!-- end market-header -->

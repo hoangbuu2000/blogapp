@@ -1,0 +1,53 @@
+﻿<section class="section first-section">
+    <div class="container-fluid">
+        <div class="masonry-blog clearfix">
+            <div class="first-slot">
+                <div class="masonry-box post-media">
+                    <img src="@Model[0].Image" style="height:400px" alt="" class="img-fluid">
+                    <div class="shadoweffect">
+                        <div class="shadow-desc">
+                            <div class="blog-meta">
+                                <span class="bg-orange"><a href="@Url.Action("Index", "Blog", new { topicID = Model[0].Topic.ID })" title="">@Model[0].Topic.Name</a></span>
+                                <h4><a href="@Url.Action("Details", "Blog", new { id = Model[0].ID.Trim() })" title="">@Model[0].Title</a></h4>
+                                <small><a href="@Url.Action("Details", "Blog", new { id = Model[0].ID.Trim() })" title="">@Model[0].PubDate</a></small>
+                                <small><a href="tech-author.html" title="">by @Model[0].Account.Fullname</a></small>
+                            </div><!-- end meta -->
+                        </div><!-- end shadow-desc -->
+                    </div><!-- end shadow -->
+                </div><!-- end post-media -->
+            </div><!-- end first-side -->
+
+            <div class="second-slot">
+                <div class="masonry-box post-media">
+                    <img src="@Model[1].Image" style="height:400px" alt="" class="img-fluid">
+                    <div class="shadoweffect">
+                        <div class="shadow-desc">
+                            <div class="blog-meta">
+                                <span class="bg-orange"><a href="@Url.Action("Index", "Blog", new { topicID = Model[1].Topic.ID })" title="">@Model[1].Topic.Name</a></span>
+                                <h4><a href="@Url.Action("Details", "Blog", new { id = Model[1].ID.Trim() })" title="">@Model[1].Title</a></h4>
+                                <small><a href="@Url.Action("Details", "Blog", new { id = Model[1].ID.Trim() })" title="">@Model[1].PubDate</a></small>
+                                <small><a href="tech-author.html" title="">by @Model[1].Account.Fullname</a></small>
+                            </div><!-- end meta -->
+                        </div><!-- end shadow-desc -->
+                    </div><!-- end shadow -->
+                </div><!-- end post-media -->
+            </div><!-- end second-side -->
+
+            <div class="last-slot">
+                <div class="masonry-box post-media">
+                    <img src="@Model[2].Image" style="height:400px" alt="" class="img-fluid">
+                    <div class="shadoweffect">
+                        <div class="shadow-desc">
+                            <div class="blog-meta">
+                                <span class="bg-orange"><a href="@Url.Action("Index", "Blog", new { topicID = Model[2].Topic.ID })" title="">@Model[2].Topic.Name</a></span>
+                                <h4><a href="@Url.Action("Details", "Blog", new { id = Model[2].ID.Trim() })" title="">@Model[2].Title</a></h4>
+                                <small><a href="@Url.Action("Details", "Blog", new { id = Model[2].ID.Trim() })" title="">@Model[2].PubDate</a></small>
+                                <small><a href="tech-author.html" title="">by @Model[2].Account.Fullname</a></small>
+                            </div><!-- end meta -->
+                        </div><!-- end shadow-desc -->
+                    </div><!-- end shadow -->
+                </div><!-- end post-media -->
+            </div><!-- end second-side -->
+        </div><!-- end masonry -->
+    </div>
+</section>

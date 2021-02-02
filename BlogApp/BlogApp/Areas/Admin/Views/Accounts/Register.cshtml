@@ -1,0 +1,59 @@
+﻿@model BlogApp.Areas.Admin.Data.RegisterViewModel
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Areas/Admin/Views/Shared/_Login.cshtml";
+}
+
+<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+    @using (Html.BeginForm("Register", "Accounts", FormMethod.Post, new { @class = "login100-form validate-form" }))
+    {
+        <span class="login100-form-title p-b-49">
+            ĐĂNG KÝ
+        </span>
+
+        <div class="wrap-input100 validate-input m-b-23" data-validate="Thông tin bắt buộc">
+            <span class="label-input100">Tài khoản</span>
+            @Html.TextBoxFor(model => model.Username, new { @class = "input100", placeholder = "Nhập tài khoản" })
+            <span class="focus-input100" data-symbol="&#xf206;"></span>
+        </div>
+        @Html.ValidationMessageFor(model => model.Username)
+
+        <div class="wrap-input100 validate-input" data-validate="Thông tin bắt buộc">
+            <span class="label-input100">Mật khẩu</span>
+            @Html.PasswordFor(model => model.Password, new { @class = "input100", placeholder = "Nhập mật khẩu" })
+            <span class="focus-input100" data-symbol="&#xf190;"></span>
+        </div>
+        @Html.ValidationMessageFor(model => model.Password)
+
+        <div class="wrap-input100 validate-input" data-validate="Thông tin bắt buộc">
+            <span class="label-input100">Email</span>
+            @Html.TextBoxFor(model => model.Email, new { @class = "input100", placeholder = "Nhập email" })
+            <span class="focus-input100" data-symbol="&#xf219;"></span>
+        </div>
+        @Html.ValidationMessageFor(model => model.Email)
+
+        <div class="wrap-input100 validate-input" data-validate="Thông tin bắt buộc">
+            <span class="label-input100">Họ tên</span>
+            @Html.TextBoxFor(model => model.Fullname, new { @class = "input100", placeholder = "Họ tên" })
+            <span class="focus-input100" data-symbol="&#xf187;"></span>
+        </div>
+        @Html.ValidationMessageFor(model => model.Fullname)
+
+        <div class="text-right p-t-8 p-b-31">
+            @Html.ActionLink("Đã có tài khoản?", "Login")
+        </div>
+
+        <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+                <div class="login100-form-bgbtn"></div>
+                <button class="login100-form-btn">
+                    Đăng ký
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script src="~/Scripts/App/CustomValidators.js"></script>
+} 

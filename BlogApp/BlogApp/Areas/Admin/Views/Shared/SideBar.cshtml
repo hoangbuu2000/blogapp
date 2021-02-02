@@ -1,0 +1,88 @@
+﻿<div class="sidebar" data-color="purple" data-background-color="white" data-image="~/Areas/Admin/assets/img/sidebar-1.jpg">
+    <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+    <div class="logo">
+        <a href="#" class="simple-text logo-normal">
+            BLOG APP
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="nav-item @ViewBag.HomeActive">
+                <a class="nav-link" href="@Url.Action("Index", "Home")">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li class="nav-item @ViewBag.TopicActive">
+                <a class="nav-link" href="@Url.Action("Index", "Topics")">
+                    <i class="material-icons">library_books</i>
+                    <p>Chủ đề</p>
+                </a>
+            </li>
+            <li class="nav-item @ViewBag.PostActive">
+                <a class="nav-link" href="@Url.Action("Index", "Posts")">
+                    <i class="material-icons">content_paste</i>
+                    <p>Bài viết</p>
+                </a>
+            </li>
+            <li class="nav-item @ViewBag.ResActive">
+                <a class="nav-link" href="@Url.Action("Index", "Responses")">
+                    <i class="material-icons">bubble_chart</i>
+                    <p>Phản hồi</p>
+                </a>
+            </li>
+            <li class="nav-item @ViewBag.RoleActive">
+                <a class="nav-link" href="@Url.Action("Index", "Roles")">
+                    <i class="material-icons">supervised_user_circle</i>
+                    <p>Vai trò</p>
+                </a>
+            </li>
+            <li class="nav-item @ViewBag.AccActive">
+                <a class="nav-link" href="@Url.Action("Index", "Accounts")">
+                    <i class="material-icons">language</i>
+                    <p>Tài khoản</p>
+                </a>
+            </li>
+            <li class="nav-item @ViewBag.NewsActive">
+                <a class="nav-link" href="@Url.Action("Index", "News")">
+                    <i class="material-icons">system_update</i>
+                    <p>Tin tức</p>
+                </a>
+            </li>
+            <li class="nav-item @ViewBag.WebActive">
+                <a class="nav-link" href="@Url.Action("Index", "Websites")">
+                    <i class="material-icons">rss_feed</i>
+                    <p>Nguồn tin</p>
+                </a>
+            </li>
+            <li class="nav-item @ViewBag.LogActive">
+                <a class="nav-link" href="@Url.Action("Index", "Logs")">
+                    <i class="material-icons">sd_card</i>
+                    <p>Lịch sử hoạt động</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="./user.html">
+                    <i class="material-icons">person</i>
+                    <p>Thông tin cá nhân</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="./notifications.html">
+                    <i class="material-icons">notifications</i>
+                    <p>Thông báo</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="@Url.Action("Logout", "Accounts")">
+                    <i class="material-icons">exit_to_app</i>
+                    <p>Đăng xuất</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
