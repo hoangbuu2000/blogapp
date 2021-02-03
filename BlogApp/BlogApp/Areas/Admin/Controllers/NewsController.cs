@@ -82,24 +82,26 @@ namespace BlogApp.Areas.Admin.Controllers
                     db.Save();
                 }
 
+                using (LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository account = new AccountRepository())
+                    {
+                        var user = account.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã sử dụng chức năng lấy tin tự động", user.Fullname);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
+
                 ViewBag.websiteID = new SelectList(db.GetWebsite(), "ID", "Name");
                 return View(db.SelectDESCNews());
             }
-        }
-
-        // GET: Admin/News/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            News news = db.SelectByID(id);
-            if (news == null)
-            {
-                return HttpNotFound();
-            }
-            return View(news);
         }
 
         // GET: Admin/News/Edit/5
@@ -129,6 +131,24 @@ namespace BlogApp.Areas.Admin.Controllers
             {
                 db.Update(news);
                 db.Save();
+
+                using (LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository account = new AccountRepository())
+                    {
+                        var user = account.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã SỬA tin tức {1}", user.Fullname, news.Title);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
+
                 return RedirectToAction("Index");
             }
             ViewBag.WebsiteID = new SelectList(db.GetWebsite(), "ID", "Name", news.WebsiteID);
@@ -155,8 +175,28 @@ namespace BlogApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            var news = db.SelectByID(id);
+
             db.Delete(id);
             db.Save();
+
+            using (LogRepository log = new LogRepository())
+            {
+                var logModel = new Log();
+                logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                logModel.PubDate = DateTime.Now;
+
+                using (AccountRepository account = new AccountRepository())
+                {
+                    var user = account.SelectByUserName(User.Identity.Name);
+                    logModel.AccountID = user.ID;
+                    logModel.Content = String.Format("{0} đã XÓA tin tức {1}", user.Fullname, news.Title);
+                }
+
+                log.Insert(logModel);
+                log.Save();
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -164,6 +204,24 @@ namespace BlogApp.Areas.Admin.Controllers
         {
             db.DeleteAll();
             db.Save();
+
+            using (LogRepository log = new LogRepository())
+            {
+                var logModel = new Log();
+                logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                logModel.PubDate = DateTime.Now;
+
+                using (AccountRepository account = new AccountRepository())
+                {
+                    var user = account.SelectByUserName(User.Identity.Name);
+                    logModel.AccountID = user.ID;
+                    logModel.Content = String.Format("{0} đã thực hiện chức năng XÓA HẾT", user.Fullname);
+                }
+
+                log.Insert(logModel);
+                log.Save();
+            }
+
             return RedirectToAction("Index");
         }
 

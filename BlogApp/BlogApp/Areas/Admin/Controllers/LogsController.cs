@@ -23,7 +23,7 @@ namespace BlogApp.Areas.Admin.Controllers
         // GET: Admin/Logs
         public ActionResult Index()
         {
-            var log = db.SelectAllWithNoLazy();
+            var log = db.SelectDESCLog();
             return View(log);
         }
 
@@ -39,31 +39,6 @@ namespace BlogApp.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(log);
-        }
-
-        // GET: Admin/Logs/Create
-        public ActionResult Create()
-        {
-            ViewBag.AccountID = new SelectList(db.GetAccount(), "ID", "Username");
-            return View();
-        }
-
-        // POST: Admin/Logs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Content,PubDate,AccountID")] Log log)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Insert(log);
-                db.Save();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.AccountID = new SelectList(db.GetAccount(), "ID", "Username", log.AccountID);
             return View(log);
         }
 

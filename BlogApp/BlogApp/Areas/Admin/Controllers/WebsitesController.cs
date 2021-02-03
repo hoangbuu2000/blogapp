@@ -60,6 +60,24 @@ namespace BlogApp.Areas.Admin.Controllers
                 website.ID = Guid.NewGuid().ToString().Substring(0, 10);
                 db.Insert(website);
                 db.Save();
+
+                using (LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository account = new AccountRepository())
+                    {
+                        var user = account.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã THÊM nguồn tin {1}", user.Fullname, website.Name);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -93,6 +111,24 @@ namespace BlogApp.Areas.Admin.Controllers
             {
                 db.Update(website);
                 db.Save();
+
+                using (LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository account = new AccountRepository())
+                    {
+                        var user = account.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã SỬA nguồn tin {1} thành {2}", user.Fullname, Request["oldName"], website.Name);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
+
                 return RedirectToAction("Index");
             }
             return View(website);
@@ -118,8 +154,28 @@ namespace BlogApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            var website = db.SelectByID(id);
+
             db.Delete(id);
             db.Save();
+
+            using (LogRepository log = new LogRepository())
+            {
+                var logModel = new Log();
+                logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                logModel.PubDate = DateTime.Now;
+
+                using (AccountRepository account = new AccountRepository())
+                {
+                    var user = account.SelectByUserName(User.Identity.Name);
+                    logModel.AccountID = user.ID;
+                    logModel.Content = String.Format("{0} đã XÓA nguồn tin {1}", user.Fullname, website.Name);
+                }
+
+                log.Insert(logModel);
+                log.Save();
+            }
+
             return RedirectToAction("Index");
         }
 

@@ -1,24 +1,21 @@
 ﻿@model IEnumerable<BlogApp.Areas.Admin.Data.Log>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lịch sử hoạt động";
 }
 
-<h2>Index</h2>
+<h2>Lịch sử hoạt động</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
+            Nội dung
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PubDate)
+            Ngày thực hiện
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Account.Username)
+            Người thực hiện
         </th>
         <th></th>
     </tr>
@@ -35,9 +32,9 @@
             @Html.DisplayFor(modelItem => item.Account.Username)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

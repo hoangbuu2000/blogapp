@@ -1,17 +1,16 @@
 ﻿@model BlogApp.Areas.Admin.Data.Website
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết nguồn tin";
 }
 
-<h2>Details</h2>
+<h2>Chi tiết nguồn tin</h2>
 
 <div>
-    <h4>Website</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            Tên
         </dt>
 
         <dd>
@@ -19,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Syntax)
+            Cú pháp cắt chuỗi (start,end)
         </dt>
 
         <dd>
@@ -29,6 +28,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.ID }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-success" })
 </p>

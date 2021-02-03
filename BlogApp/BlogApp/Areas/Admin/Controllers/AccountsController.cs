@@ -57,12 +57,32 @@ namespace BlogApp.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Username,Password,Email,Fullname,Active,AccessDate,Role_ID")] Account account)
+        public ActionResult Create([Bind(Include = "Username,Password,Email,Fullname,Active,Role_ID")] Account account)
         {
             if (ModelState.IsValid)
             {
+                account.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                account.AccessDate = DateTime.Now;
                 repository.Insert(account);
                 repository.Save();
+
+                using (LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository acc = new AccountRepository())
+                    {
+                        var user = acc.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã THÊM tài khoản {1} thuộc vai trò {2}", user.Fullname, account.Username, account.Role_ID);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -97,6 +117,24 @@ namespace BlogApp.Areas.Admin.Controllers
             {
                 repository.Update(account);
                 repository.Save();
+
+                using (LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository acc = new AccountRepository())
+                    {
+                        var user = acc.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã SỬA tài khoản {1}", user.Fullname, account.Username);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
+
                 return RedirectToAction("Index");
             }
             ViewBag.Role_ID = new SelectList(repository.GetRole(), "ID", "Name", account.Role_ID);
@@ -123,8 +161,28 @@ namespace BlogApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            var account = repository.SelectByID(id);
+
             repository.Delete(id);
             repository.Save();
+
+            using (LogRepository log = new LogRepository())
+            {
+                var logModel = new Log();
+                logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                logModel.PubDate = DateTime.Now;
+
+                using (AccountRepository acc = new AccountRepository())
+                {
+                    var user = acc.SelectByUserName(User.Identity.Name);
+                    logModel.AccountID = user.ID;
+                    logModel.Content = String.Format("{0} đã XÓA tài khoản {1}", user.Fullname, account.Username);
+                }
+
+                log.Insert(logModel);
+                log.Save();
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -149,6 +207,24 @@ namespace BlogApp.Areas.Admin.Controllers
             {
                 if (auth.Authenticate(model.Username, model.Password))
                 {
+
+                    using (LogRepository log = new LogRepository())
+                    {
+                        var logModel = new Log();
+                        logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                        logModel.PubDate = DateTime.Now;
+
+                        using (AccountRepository account = new AccountRepository())
+                        {
+                            var user = account.SelectByUserName(model.Username);
+                            logModel.AccountID = user.ID;
+                            logModel.Content = String.Format("{0} đã đăng nhập", user.Fullname);
+                        }
+
+                        log.Insert(logModel);
+                        log.Save();
+                    }
+
                     return Redirect(returnUrl ?? Url.Action("Index", "Home"));
                 }
                 else

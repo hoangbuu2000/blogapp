@@ -66,6 +66,24 @@ namespace BlogApp.Areas.Admin.Controllers
                 post.Account_ID = repository.GetAccountByUserName(User.Identity.Name).ID;
                 repository.Insert(post);
                 repository.Save();
+
+                using (LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository account = new AccountRepository())
+                    {
+                        var user = account.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã THÊM bài viết {1}", user.Fullname, post.Title);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -103,6 +121,24 @@ namespace BlogApp.Areas.Admin.Controllers
             {
                 repository.Update(post);
                 repository.Save();
+
+                using (LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository account = new AccountRepository())
+                    {
+                        var user = account.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã SỬA bài viết {1}", user.Fullname, post.Title);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
+
                 return RedirectToAction("Index");
             }
             ViewBag.Account_ID = new SelectList(repository.GetAccount(), "ID", "Username", post.Account_ID);
@@ -130,8 +166,28 @@ namespace BlogApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            var post = repository.SelectByID(id);
+
             repository.Delete(id);
             repository.Save();
+
+            using (LogRepository log = new LogRepository())
+            {
+                var logModel = new Log();
+                logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                logModel.PubDate = DateTime.Now;
+
+                using (AccountRepository account = new AccountRepository())
+                {
+                    var user = account.SelectByUserName(User.Identity.Name);
+                    logModel.AccountID = user.ID;
+                    logModel.Content = String.Format("{0} đã XÓA bài viết {1}", user.Fullname, post.Title);
+                }
+
+                log.Insert(logModel);
+                log.Save();
+            }
+
             return RedirectToAction("Index");
         }
 

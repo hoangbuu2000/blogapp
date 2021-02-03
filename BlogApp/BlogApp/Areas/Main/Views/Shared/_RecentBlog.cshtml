@@ -32,7 +32,7 @@
 
                     <small class="firstsmall"><a class="bg-orange" href="@Url.Action("Index", "Blog", new { topicID = item.Topic.ID })" title="">@item.Topic.Name</a></small>
                     <small><a href="@Url.Action("Details", "Blog", new { id = item.ID.Trim() })" title="">@item.PubDate</a></small>
-                    <small><a href="tech-author.html" title="">by @item.Account.Fullname</a></small>
+                    <small><a href="#" title="">by @item.Account.Fullname</a></small>
                     <small><a href="@Url.Action("Details", "Blog", new { id = item.ID.Trim() })" title=""><i class="fa fa-eye"></i> 1114</a></small>
                 </div><!-- end meta -->
             </div><!-- end blog-box -->

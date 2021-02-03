@@ -1,21 +1,21 @@
 ﻿@model IEnumerable<BlogApp.Areas.Admin.Data.Website>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Nguồn tin";
 }
 
-<h2>Index</h2>
+<h2>Nguồn tin</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Thêm nguồn tin", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Tên
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Syntax)
+            Cú pháp cắt chuỗi (start,end)
         </th>
         <th></th>
     </tr>
@@ -29,9 +29,9 @@
             @Html.DisplayFor(modelItem => item.Syntax)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

@@ -60,6 +60,23 @@ namespace BlogApp.Areas.Admin.Controllers
             {
                 repository.Insert(topic);
                 repository.Save();
+
+                using(LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository account = new AccountRepository())
+                    {
+                        var user = account.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã THÊM chủ đề {1}", user.Fullname, topic.Name);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
                 return RedirectToAction("Index");
             }
 
@@ -92,6 +109,24 @@ namespace BlogApp.Areas.Admin.Controllers
             {
                 repository.Update(topic);
                 repository.Save();
+
+                using (LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository account = new AccountRepository())
+                    {
+                        var user = account.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã SỬA chủ đề {1} thành chủ đề {2}", user.Fullname, Request["oldName"], topic.Name);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
+
                 return RedirectToAction("Index");
             }
             return View(topic);
@@ -119,8 +154,28 @@ namespace BlogApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var topic = repository.SelectByID(id);
+
             repository.Delete(id);
             repository.Save();
+
+            using (LogRepository log = new LogRepository())
+            {
+                var logModel = new Log();
+                logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                logModel.PubDate = DateTime.Now;
+
+                using (AccountRepository account = new AccountRepository())
+                {
+                    var user = account.SelectByUserName(User.Identity.Name);
+                    logModel.AccountID = user.ID;
+                    logModel.Content = String.Format("{0} đã XÓA chủ đề {1}", user.Fullname, topic.Name);
+                }
+
+                log.Insert(logModel);
+                log.Save();
+            }
+
             return RedirectToAction("Index");
         }
 

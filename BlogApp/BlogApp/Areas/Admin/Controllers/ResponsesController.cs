@@ -63,6 +63,24 @@ namespace BlogApp.Areas.Admin.Controllers
                 response.PubDate = DateTime.Now;
                 repository.Insert(response);
                 repository.Save();
+
+                using (LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository account = new AccountRepository())
+                    {
+                        var user = account.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã THÊM phản hồi có mã {1} cho bài viết {2}", user.Fullname, response.ID, response.Post_ID);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
+
                 return RedirectToAction("Index");
             }
             ViewBag.Post_ID = new SelectList(repository.GetPost(), "ID", "Title", response.Post_ID);
@@ -96,6 +114,24 @@ namespace BlogApp.Areas.Admin.Controllers
             {
                 repository.Update(response);
                 repository.Save();
+
+                using (LogRepository log = new LogRepository())
+                {
+                    var logModel = new Log();
+                    logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                    logModel.PubDate = DateTime.Now;
+
+                    using (AccountRepository account = new AccountRepository())
+                    {
+                        var user = account.SelectByUserName(User.Identity.Name);
+                        logModel.AccountID = user.ID;
+                        logModel.Content = String.Format("{0} đã SỬA phản hồi có mã {1} của bài viết {2}", user.Fullname, response.ID, response.Post_ID);
+                    }
+
+                    log.Insert(logModel);
+                    log.Save();
+                }
+
                 return RedirectToAction("Index");
             }
             ViewBag.Post_ID = new SelectList(repository.GetPost(), "ID", "Title", response.Post_ID);
@@ -122,8 +158,28 @@ namespace BlogApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            var res = repository.SelectByID(id);
+
             repository.Delete(id);
             repository.Save();
+
+            using (LogRepository log = new LogRepository())
+            {
+                var logModel = new Log();
+                logModel.ID = Guid.NewGuid().ToString().Substring(0, 10);
+                logModel.PubDate = DateTime.Now;
+
+                using (AccountRepository account = new AccountRepository())
+                {
+                    var user = account.SelectByUserName(User.Identity.Name);
+                    logModel.AccountID = user.ID;
+                    logModel.Content = String.Format("{0} đã XÓA phản hồi có mã {1} của bài viết {2}", user.Fullname, res.ID, res.Post_ID);
+                }
+
+                log.Insert(logModel);
+                log.Save();
+            }
+
             return RedirectToAction("Index");
         }
 

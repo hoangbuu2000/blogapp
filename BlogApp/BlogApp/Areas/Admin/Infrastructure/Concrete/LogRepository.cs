@@ -7,11 +7,19 @@ using System.Data.Entity;
 
 namespace BlogApp.Areas.Admin.Infrastructure.Concrete
 {
-    public class LogRepository : GenericRepository<Log>
+    public class LogRepository : GenericRepository<Log>, IDisposable
     {
         public IEnumerable<Log> SelectAllWithNoLazy()
         {
             return this.table.Include(l => l.Account).ToList();
+        }
+
+        public IEnumerable<Log> SelectDESCLog()
+        {
+            var result = (from p in table
+                          orderby p.PubDate descending
+                          select p).Include(l => l.Account).ToList();
+            return result;
         }
 
         public IEnumerable<Account> GetAccount()

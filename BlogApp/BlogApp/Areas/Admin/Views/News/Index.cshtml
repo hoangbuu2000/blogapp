@@ -12,11 +12,11 @@
 
     <br />
 
-    <input type="submit" class="btn btn-danger" value="Lấy tin tự động" />
-
+    <div class="form-group">
+        <input type="submit" class="btn btn-success btn-sm" value="Lấy tin tự động" />
+        @Html.ActionLink("Xóa tất cả", "DeleteAll", null, new { onclick = "return confirm('Are you sure?')", @class = "btn btn-danger btn-sm" })
+    </div>
 }
-
-@Html.ActionLink("Xóa tất cả", "DeleteAll")
 
 <table class="table">
     <tr>
@@ -65,7 +65,6 @@
             </td>
             <td>
                 @Html.ActionLink("Sửa", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Chi tiết", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
             </td>
         </tr>

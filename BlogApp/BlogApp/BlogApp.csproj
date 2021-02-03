@@ -1842,7 +1842,6 @@
     <Content Include="Areas\Admin\Data\blogEntities.edmx.diagram">
       <DependentUpon>blogEntities.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\Logs\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Logs\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Logs\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Logs\Edit.cshtml" />
@@ -1853,7 +1852,6 @@
     <Content Include="Areas\Admin\Views\Websites\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Websites\Index.cshtml" />
     <Content Include="Areas\Admin\Views\News\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\News\Details.cshtml" />
     <Content Include="Areas\Admin\Views\News\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\News\Index.cshtml" />
     <Content Include="Areas\Main\Views\News\Index.cshtml" />

@@ -7,7 +7,7 @@ using BlogApp.Areas.Admin.Data;
 
 namespace BlogApp.Areas.Admin.Infrastructure.Concrete
 {
-    public class AccountRepository : GenericRepository<Account>
+    public class AccountRepository : GenericRepository<Account>, IDisposable
     {
         public IEnumerable<Role> GetRole()
         {
